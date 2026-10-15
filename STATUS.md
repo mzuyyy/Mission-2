@@ -1,5 +1,23 @@
 # Trạng thái Gamota Mission 2
 
+## Deploy online đã xác minh một phần (15/10/2026, khoảng 16:55–17:10 GMT+7)
+
+- App deploy từ `mzuyyy/Mission-2@main/app.py`, Python 3.12:
+  **https://mission2.streamlit.app/**. Không sửa setting nào trên host.
+- Xác minh thật từ máy này (curl + tab browser T3, profile đã đăng nhập của chủ tài khoản):
+  DNS phân giải `35.201.127.49`; trang chủ ẩn danh HTTP 200 sau 2–3 redirect handshake
+  phiên (cookie jar), trả đúng vỏ app Streamlit; `/api/v2/app/status` trả
+  `viewerAuthEnabled=false`, `streamlitVersion=1.66.0` — không bắt viewer đăng nhập.
+  Kết luận "đòi login" trước đó là sai: các 303 ban đầu chỉ là handshake phiên ẩn danh.
+- Trình duyệt đã render đầy đủ UI một lần: tiêu đề "Gamota · Nghiên cứu có căn cứ ·
+  Streamlit", form câu hỏi/phạm vi, nguồn URL/PDF, 4 tab Kết quả/Bằng chứng/Nguồn/Kiểm tra.
+- Hạn chế chưa khắc phục: container free tier ngủ khi không dùng; lúc kiểm tra lại,
+  `/_stcore/health` trả vỏ SPA của host thay vì `ok`, và UI có lúc chỉ hiện khung trống
+  trong lúc wake. Chưa bắt được lần render ẩn danh end-to-end hoàn chỉnh lần hai.
+  Không ghi health `ok` khi chưa quan sát thật.
+- Tiếp theo: người chấm mở link khi container thức; quay video demo; giữ nguyên
+  `.env`/key local, secrets chỉ nằm trên host.
+
 ## Chuẩn bị bài nộp public và online theo yêu cầu mới (15/10/2026)
 
 - Người dùng đã yêu cầu rõ repo public và deploy online; chỉ dẫn cũ chưa xuất bản

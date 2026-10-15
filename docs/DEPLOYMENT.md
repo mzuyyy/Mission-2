@@ -5,9 +5,13 @@
 `pyproject.toml`/`uv.lock` vẫn là nguồn dependency chính.
 
 Trạng thái 15/10/2026: repo đã public, Linux CI đã kiểm production startup.
-Đã đăng nhập Streamlit qua Google. Khi chọn Create app, host yêu cầu kết nối GitHub;
-hiện trang GitHub login đang chờ chủ tài khoản xác thực. Chưa tạo app online.
-Không có URL demo được xác nhận để ghi vào bài nộp ở thời điểm này.
+App đã deploy tại **https://mission2.streamlit.app/** (`mzuyyy/Mission-2`, `main`,
+`app.py`, Python 3.12). Đã xác minh từ máy này: DNS phân giải, trang chủ ẩn danh
+trả HTTP 200 sau handshake phiên, API `/api/v2/app/status` trả
+`viewerAuthEnabled=false` (không bắt viewer đăng nhập), và trình duyệt đã render
+đầy đủ UI một lần khi container thức. Chưa ghi health `ok` từ `/_stcore/health`
+vì lúc kiểm tra container đang ngủ/khởi động lại (trả vỏ SPA của host thay vì `ok`).
+Không thay đổi setting nào trên host khi kiểm tra.
 
 ## Cách deploy đã chuẩn bị
 

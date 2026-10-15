@@ -21,9 +21,13 @@ Repository đã public: [mzuyyy/Mission-2](https://github.com/mzuyyy/Mission-2).
   ca nguồn thật, failure PDF và lỗi quota; có Kỳ vọng → Thực tế → Đạt/Chưa đạt → Điều học được.
 - [CI Linux đã đạt](https://github.com/mzuyyy/Mission-2/actions/runs/38711272415):
   67 test, Ruff, basedpyright, cài production từ lock và Streamlit health `ok`.
-- Bản online: đã đăng nhập Streamlit; khi chọn Create app, host yêu cầu kết nối GitHub.
-  Hiện chờ đăng nhập GitHub `mzuyyy` để hoàn tất kết nối và tạo app.
-  **Chưa có URL ứng dụng được xác nhận**, không dùng link repo/CI thay link demo.
+- Bản online: **https://mission2.streamlit.app/** (repo `mzuyyy/Mission-2`, nhánh `main`,
+  entrypoint `app.py`, Python 3.12). Đã xác minh: API trạng thái của host trả
+  `viewerAuthEnabled=false` (mở ẩn danh không cần đăng nhập); trình duyệt đã render
+  đầy đủ tiêu đề "Gamota · Nghiên cứu có căn cứ · Streamlit" cùng form câu hỏi,
+  nguồn và 4 tab Kết quả/Bằng chứng/Nguồn/Kiểm tra. Lưu ý thật: host free tier cho
+  app ngủ khi không dùng, lần mở đầu có thể chờ wake; truy cập ẩn danh lần đầu đi
+  qua 2–3 redirect handshake phiên của Streamlit rồi mới trả HTTP 200.
   [Hướng dẫn deploy](docs/DEPLOYMENT.md) và lệnh local bên dưới đã chuẩn bị;
   chạy offline được khi chưa có key hoặc Gemini hết quota.
 
