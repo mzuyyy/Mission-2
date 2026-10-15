@@ -1,5 +1,13 @@
 # Trạng thái Gamota Mission 2
 
+## Key Groq sống lại nhưng cả hai provider đều 429 (15/10/2026, run a040d38f)
+
+- Groq key hết 401, giờ trả 429 khi có request — key còn hiệu lực, chỉ hết quota.
+  R01/R02 đều kích hoạt fallback đúng (model cuối là `openai/gpt-oss-20b`):
+  R01 đốt hết 4 requests (Gemini 429 → Groq 429), R02 dừng ở 2 requests cùng 429.
+- Kết luận: cơ chế fallback chạy đúng thiết kế; bottleneck hiện tại là quota free-tier
+  của cả hai bên, không phải code. Chờ reset quota rồi chạy lại, demo trước mắt dùng replay.
+
 ## Key Groq chết, cả hai provider đều chặn (15/10/2026 tối)
 
 - Chạy evaluator `d5714397`: R01/R02 BLOCKED. Gemini 429 (quota ngày hết sau nhiều lượt thử
