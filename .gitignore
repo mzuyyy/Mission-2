@@ -1,0 +1,37 @@
+# Secrets
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+*.pem
+*.key
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+# User inputs and private runtime artifacts
+data/uploads/
+data/cache/
+data/private/
+runs/
+eval/runs/
+eval/runs_*/
+eval/runs-*/
+eval/real_inputs/
+logs/
+# Local UI/developer
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.codegraph/
+.basedpyright/
+# Evaluation reports may be committed only after review/redaction.
+

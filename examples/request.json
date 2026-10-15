@@ -1,0 +1,11 @@
+{
+  "question": "So sánh tín hiệu nhu cầu puzzle và idle RPG tại Việt Nam trong Q2 và Q3/2025 để chọn hướng khảo sát sâu; những dữ liệu nào còn thiếu?",
+  "country": ["VN"],
+  "platforms": ["Android Google Play"],
+  "period_start": "2025-04-01",
+  "period_end": "2025-09-30",
+  "decision_goal": "screen_opportunities",
+  "alternatives": ["puzzle", "idle RPG"],
+  "constraints": ["Chỉ sàng lọc nhu cầu, không kết luận lợi nhuận hoặc ký phát hành."],
+  "clarified": true
+}

@@ -1,0 +1,63 @@
+[project]
+name = "gamota-research"
+version = "0.1.0"
+description = "Evidence-first game market research MVP"
+requires-python = ">=3.11,<3.14"
+dependencies = [
+  "streamlit>=1.45,<2", "pydantic>=2.11,<3", "pydantic-settings>=2.8,<3",
+  "httpx>=0.28,<0.29", "beautifulsoup4>=4.13,<5", "pypdf>=6,<7",
+  "python-dotenv>=1,<2", "typer>=0.16,<1",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8,<10",
+    "ruff>=0.12,<1",
+    "basedpyright>=1.29,<2",
+    "reportlab>=4,<5",
+    "playwright>=1.64.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/gamota_research"]
+
+[project.scripts]
+gamota = "gamota_research.cli:app"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-ra --strict-markers -m 'not browser and not live'"
+markers = ["live: requires network and configured LLM; never runs by default", "browser: requires local Streamlit server and Playwright Chromium"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+extend-exclude = ["runs", "eval/runs", ".codegraph", ".omo"]
+
+[tool.ruff.lint]
+select = ["ALL"]
+# Vietnamese UX strings and small procedural adapters intentionally keep readable text/flow.
+ignore = ["D100", "D101", "D102", "D103", "D104", "D105", "D107", "D203", "D213", "COM812", "RUF001", "RUF002", "RUF003", "TRY003", "EM101", "EM102", "PLR0913", "CPY001", "E501"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "PLR2004", "ARG001", "D", "SLF001", "INP001", "PLC0415"]
+# These are sequential scenario drivers and explicit CLI boundary catches.
+"tests/browser/test_browser.py" = ["PLR0915"]
+"eval/run_evaluation.py" = ["C901", "PLR0915", "FBT002"]
+# One-shot live diagnostic CLIs: stdout reporting and small literal thresholds are the point.
+"eval/diagnose_*.py" = ["T201", "E402", "SLF001"]
+"eval/probe_*.py" = ["T201", "PLR2004"]
+"src/gamota_research/cli.py" = ["TRY301"]
+
+[tool.basedpyright]
+typeCheckingMode = "strict"
+pythonVersion = "3.11"
+include = ["src", "app.py"]
+venvPath = "."
+venv = ".venv"
+

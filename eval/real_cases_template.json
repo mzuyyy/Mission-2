@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0",
+  "notice": "NOT PREPARED. Select and read real public sources before running; do not treat synthetic sources as real.",
+  "cases": [
+    {
+      "case_id": "R01",
+      "status": "NOT_PREPARED",
+      "question": "Trong bộ nguồn đã tuyển chọn, puzzle hay idle RPG có tín hiệu phù hợp hơn để khảo sát phát hành tại Việt Nam trong kỳ dữ liệu đã chốt?",
+      "scope": {
+        "country": [],
+        "platforms": [],
+        "period_start": null,
+        "period_end": null,
+        "decision_goal": null
+      },
+      "sources": [],
+      "gold_evidence": [],
+      "expected": null,
+      "actual": null,
+      "verdict": "NOT_RUN",
+      "learned": null
+    },
+    {
+      "case_id": "R02",
+      "status": "NOT_PREPARED",
+      "question": "Các nguồn công khai nói gì về cạnh tranh của một thể loại tại Thái Lan, và dữ liệu nào còn thiếu trước khi chọn thị trường?",
+      "scope": {
+        "country": [],
+        "platforms": [],
+        "period_start": null,
+        "period_end": null,
+        "decision_goal": null
+      },
+      "sources": [],
+      "gold_evidence": [],
+      "expected": null,
+      "actual": null,
+      "verdict": "NOT_RUN",
+      "learned": null
+    },
+    {
+      "case_id": "R03",
+      "status": "NOT_PREPARED",
+      "question": "Hai báo cáo thật có đang mâu thuẫn về cùng chỉ số hay chỉ khác phạm vi/phương pháp?",
+      "scope": {
+        "country": [],
+        "platforms": [],
+        "period_start": null,
+        "period_end": null,
+        "decision_goal": null
+      },
+      "sources": [],
+      "gold_evidence": [],
+      "expected": null,
+      "actual": null,
+      "verdict": "NOT_RUN",
+      "learned": null
+    }
+  ]
+}
+

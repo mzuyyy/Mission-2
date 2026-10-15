@@ -1,0 +1,13 @@
+# Human-readable dependency list. pyproject.toml + uv.lock are authoritative.
+# requirements.txt is exported from the tested lock for hosts without uv.
+streamlit
+pydantic
+pydantic-settings
+httpx
+beautifulsoup4
+pypdf
+python-dotenv
+typer
+# Tests/tooling are in the pyproject.toml dev dependency group.
+# LLM adapter uses the documented HTTP API; no provider SDK needed.
+

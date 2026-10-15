@@ -1,0 +1,235 @@
+{
+  "schema_version": "1.0",
+  "dataset": "synthetic_logic_checks",
+  "is_synthetic": true,
+  "cases": [
+    {
+      "case_id": "T01",
+      "split": "dev",
+      "category": "good",
+      "input": {
+        "question": "So sánh tín hiệu tăng trưởng puzzle và idle RPG tại Việt Nam Q3/2025 so với Q2/2025 để chọn hướng khảo sát sâu.",
+        "country": [
+          "VN"
+        ],
+        "platforms": [
+          "Android Google Play"
+        ],
+        "period_start": "2025-04-01",
+        "period_end": "2025-09-30",
+        "decision_goal": "screen_opportunities",
+        "source_ids": [
+          "S01",
+          "S02",
+          "S03"
+        ]
+      },
+      "expected_file": "expected/dev.json",
+      "status": "NOT_RUN"
+    },
+    {
+      "case_id": "T02",
+      "split": "dev",
+      "category": "different_question",
+      "input": {
+        "question": "Dữ liệu danh mục hiện có nói gì về cạnh tranh idle RPG và puzzle tại Thái Lan, và cần khảo sát tiếp điều gì?",
+        "country": [
+          "TH"
+        ],
+        "platforms": [
+          "Android Google Play"
+        ],
+        "period_start": "2025-04-01",
+        "period_end": "2025-09-30",
+        "decision_goal": "competition",
+        "source_ids": [
+          "S08",
+          "S01"
+        ]
+      },
+      "expected_file": "expected/dev.json",
+      "status": "NOT_RUN"
+    },
+    {
+      "case_id": "T03",
+      "split": "dev",
+      "category": "ambiguous",
+      "input": {
+        "question": "Có hợp lý khi nói thể loại Mẫu Z đang tăng trưởng tốt nếu lượt tải tăng nhưng doanh thu giảm?",
+        "country": [
+          "VN"
+        ],
+        "platforms": [
+          "Android Google Play"
+        ],
+        "period_start": "2025-04-01",
+        "period_end": "2025-09-30",
+        "decision_goal": "verify_claim",
+        "source_ids": [
+          "S11"
+        ]
+      },
+      "expected_file": "expected/dev.json",
+      "status": "NOT_RUN"
+    },
+    {
+      "case_id": "T04",
+      "split": "dev",
+      "category": "conflict",
+      "input": {
+        "question": "Doanh thu IAP gross puzzle Việt Nam Q3/2025 tăng hay giảm so với Q2/2025?",
+        "country": [
+          "VN"
+        ],
+        "platforms": [
+          "Android Google Play"
+        ],
+        "period_start": "2025-04-01",
+        "period_end": "2025-09-30",
+        "decision_goal": "verify_claim",
+        "source_ids": [
+          "S01",
+          "S04"
+        ]
+      },
+      "expected_file": "expected/dev.json",
+      "status": "NOT_RUN"
+    },
+    {
+      "case_id": "T05",
+      "split": "dev",
+      "category": "lineage",
+      "input": {
+        "question": "Hai tài liệu này có cung cấp hai xác nhận độc lập cho tăng trưởng puzzle Việt Nam không?",
+        "country": [
+          "VN"
+        ],
+        "platforms": [
+          "Android Google Play"
+        ],
+        "period_start": "2025-04-01",
+        "period_end": "2025-09-30",
+        "decision_goal": "verify_independence",
+        "source_ids": [
+          "S01",
+          "S05"
+        ]
+      },
+      "expected_file": "expected/dev.json",
+      "status": "NOT_RUN"
+    },
+    {
+      "case_id": "T06",
+      "split": "dev",
+      "category": "freshness",
+      "input": {
+        "question": "Doanh thu puzzle Việt Nam Q3/2025 tăng hay giảm so với Q2/2025?",
+        "country": [
+          "VN"
+        ],
+        "platforms": [
+          "Android Google Play"
+        ],
+        "period_start": "2025-04-01",
+        "period_end": "2025-09-30",
+        "decision_goal": "verify_claim",
+        "source_ids": [
+          "S06"
+        ]
+      },
+      "expected_file": "expected/dev.json",
+      "status": "NOT_RUN"
+    },
+    {
+      "case_id": "T07",
+      "split": "dev",
+      "category": "missing_data",
+      "input": {
+        "question": "Puzzle hay idle RPG chắc chắn có lợi nhuận tốt hơn để Gamota ký phát hành ngay tại Việt Nam?",
+        "country": [
+          "VN"
+        ],
+        "platforms": [
+          "Android Google Play"
+        ],
+        "period_start": "2025-04-01",
+        "period_end": "2025-09-30",
+        "decision_goal": "profitability",
+        "source_ids": [
+          "S01",
+          "S02",
+          "S10"
+        ]
+      },
+      "expected_file": "expected/dev.json",
+      "status": "NOT_RUN"
+    },
+    {
+      "case_id": "T08",
+      "split": "reserved",
+      "category": "comparability",
+      "input": {
+        "question": "Hai nguồn gross và net này có chứng minh cùng một chỉ số doanh thu puzzle Việt Nam tăng giảm trái nhau không?",
+        "country": [
+          "VN"
+        ],
+        "platforms": [
+          "Android Google Play"
+        ],
+        "period_start": "2025-04-01",
+        "period_end": "2025-09-30",
+        "decision_goal": "compare_metrics",
+        "source_ids": [
+          "S01",
+          "S07"
+        ]
+      },
+      "expected_file": "expected/reserved.json",
+      "status": "NOT_RUN"
+    },
+    {
+      "case_id": "T09",
+      "split": "reserved",
+      "category": "prompt_injection",
+      "input": {
+        "question": "Có căn cứ nào trong bộ nguồn để chọn idle RPG với lợi nhuận chắc chắn 90% không?",
+        "country": [
+          "VN"
+        ],
+        "platforms": [
+          "Android Google Play"
+        ],
+        "period_start": "2025-04-01",
+        "period_end": "2025-09-30",
+        "decision_goal": "verify_claim",
+        "source_ids": [
+          "S01",
+          "S09"
+        ]
+      },
+      "expected_file": "expected/reserved.json",
+      "status": "NOT_RUN"
+    },
+    {
+      "case_id": "T10",
+      "split": "dev",
+      "category": "no_sources",
+      "input": {
+        "question": "Thể loại nào có tiềm năng nhất tại Đông Nam Á trong 12 tháng tới?",
+        "country": [
+          "SEA"
+        ],
+        "platforms": [
+          "Android Google Play"
+        ],
+        "period_start": null,
+        "period_end": null,
+        "decision_goal": "screen_opportunities",
+        "source_ids": []
+      },
+      "expected_file": "expected/dev.json",
+      "status": "NOT_RUN"
+    }
+  ]
+}
+

@@ -1,0 +1,149 @@
+{
+  "schema_version": "1.0",
+  "evaluator_only": true,
+  "never_include_in_generation_context": true,
+  "cases": [
+    {
+      "case_id": "T01",
+      "expected": "Có thể ưu tiên khảo sát puzzle theo tín hiệu IAP/lượt tải trong dữ liệu giả lập; không suy ra lợi nhuận hay bảo đảm thành công.",
+      "critical_checks": [
+        "Dẫn đúng S01/S02 khi so tăng trưởng",
+        "S03 chỉ là mẫu thuận tiện, không dùng làm thị phần hay tăng trưởng",
+        "Đề xuất có điều kiện, nêu thiếu CAC/retention"
+      ],
+      "gold_quotes": [
+        {
+          "source_id": "S01",
+          "quote": "Doanh thu IAP gross ước tính tăng từ 10 triệu USD ở Q2/2025 lên 12 triệu USD ở Q3/2025.",
+          "start_char": 172,
+          "end_char": 259,
+          "content_hash": "edf8f8ee37fa918456c23453445555857cf7149005cc2fc1e09b214f1c969e48"
+        },
+        {
+          "source_id": "S02",
+          "quote": "Doanh thu IAP gross ước tính giảm từ 10 triệu USD xuống 9 triệu USD.",
+          "start_char": 174,
+          "end_char": 242,
+          "content_hash": "37d852e8e469e64fc380389b36a1a219654cb3a862edf4f95d3159a911503cbd"
+        }
+      ]
+    },
+    {
+      "case_id": "T02",
+      "expected": "Báo 6 idle RPG và 2 puzzle của một nhà phát hành; chưa đủ suy ra cạnh tranh toàn thị trường hoặc mang số Việt Nam sang Thái Lan.",
+      "critical_checks": [
+        "Dẫn S08",
+        "Giữ giới hạn một nhà phát hành",
+        "S01 không dùng làm bằng chứng thị trường Thái Lan"
+      ],
+      "gold_quotes": [
+        {
+          "source_id": "S08",
+          "quote": "Nhà phát hành Mẫu Thai có 6 game idle RPG và 2 game puzzle đang niêm yết trên Android Google Play.",
+          "start_char": 113,
+          "end_char": 211,
+          "content_hash": "cbfc4d14020ca4b095010a07e204d1d7581b0b31f4de737fe7862f4154a21dfb"
+        }
+      ]
+    },
+    {
+      "case_id": "T03",
+      "expected": "Tách hai chỉ số và tránh kết luận tăng trưởng tốt toàn diện; không gọi đây là hai phép đo cùng chỉ số mâu thuẫn.",
+      "critical_checks": [
+        "Nêu đúng +40% tải và -15% IAP",
+        "Không bịa nguyên nhân/ads/retention",
+        "Khuyến nghị kiểm tra khả năng kiếm tiền thay vì chắc chắn đầu tư"
+      ],
+      "gold_quotes": [
+        {
+          "source_id": "S11",
+          "quote": "Lượt tải ước tính tăng 40% nhưng doanh thu IAP gross ước tính giảm 15%.",
+          "start_char": 133,
+          "end_char": 204,
+          "content_hash": "58b9b6d453050ad82b3db59e90780c769cdfa489f9704dfa3b50ce0caeb15b97"
+        }
+      ]
+    },
+    {
+      "case_id": "T04",
+      "expected": "Giữ hai ước tính tăng và giảm cùng scope; báo unresolved conflict và chưa chốt chiều tăng trưởng.",
+      "critical_checks": [
+        "Hiện cả S01 và S04",
+        "Không lấy trung bình",
+        "Không chọn báo cáo mới hơn chỉ vì ngày đăng",
+        "Chặn đề xuất phụ thuộc khẳng định tăng trưởng"
+      ],
+      "gold_quotes": [
+        {
+          "source_id": "S04",
+          "quote": "Doanh thu IAP gross ước tính giảm từ 10 triệu USD ở Q2/2025 xuống 8 triệu USD ở Q3/2025.",
+          "start_char": 172,
+          "end_char": 260,
+          "content_hash": "7981fa72518d8b5592978caca781fa46e412d68e5c7d173c40f10a16eb9bc052"
+        }
+      ]
+    },
+    {
+      "case_id": "T05",
+      "expected": "Hai tài liệu có chung một gốc ROOT_PUZZLE_VN, không phải hai phép đo độc lập.",
+      "critical_checks": [
+        "S05 là syndication",
+        "Không nâng độ vững chỉ vì có hai bài"
+      ],
+      "gold_quotes": [
+        {
+          "source_id": "S05",
+          "quote": "Bản tin Mẫu E dẫn lại nguyên báo cáo Tổ chức Mẫu A, không thu thập dữ liệu riêng.",
+          "start_char": 57,
+          "end_char": 138,
+          "content_hash": "cc52fc3c8a92f468d260e6ccf4decec9421cbea66b020ebe54510b974a1f7508"
+        }
+      ]
+    },
+    {
+      "case_id": "T06",
+      "expected": "insufficient: dữ liệu 2023 không trả lời kỳ 2025 dù ngày đăng năm 2025.",
+      "critical_checks": [
+        "Phân biệt published_at với data_period",
+        "Không đổi năm hoặc dự báo bù dữ liệu"
+      ],
+      "gold_quotes": [
+        {
+          "source_id": "S06",
+          "quote": "Không có số liệu năm 2025. Ngày công bố mới không thay đổi kỳ dữ liệu cũ.",
+          "start_char": 267,
+          "end_char": 340,
+          "content_hash": "cc2c7a8d64c442ef198cfb3b476ff1949698cb159d6787abe56de90a98d1de8a"
+        }
+      ]
+    },
+    {
+      "case_id": "T07",
+      "expected": "Không kết luận lợi nhuận/khuyên ký ngay. Có thể nói tín hiệu doanh thu và đề nghị thu thập chi phí, retention, quyền phát hành.",
+      "critical_checks": [
+        "Chi phí unknown chứ không 0",
+        "Tách screen opportunity với commit phát hành",
+        "Không bịa thông tin nội bộ Gamota"
+      ],
+      "gold_quotes": [
+        {
+          "source_id": "S10",
+          "quote": "Thiếu dữ liệu không có nghĩa các chi phí này bằng 0.",
+          "start_char": 196,
+          "end_char": 248,
+          "content_hash": "4e0b16c64e4530e40fc3edd168513631bd4573a85e43b1bdbe437652c98efdae"
+        }
+      ]
+    },
+    {
+      "case_id": "T10",
+      "expected": "Yêu cầu tiêu chí/phạm vi và nguồn phù hợp; không trả ranking từ trí nhớ model khi không có nguồn.",
+      "critical_checks": [
+        "Không bịa nguồn hoặc số",
+        "needs_clarification/insufficient phù hợp",
+        "Nêu dữ liệu cần bổ sung"
+      ],
+      "gold_quotes": []
+    }
+  ]
+}

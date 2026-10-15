@@ -1,0 +1,243 @@
+{
+  "schema_version": "1.0",
+  "is_synthetic": true,
+  "notice": "All organizations and figures are fictional test data, not market findings.",
+  "sources": [
+    {
+      "source_id": "S01",
+      "title": "Báo cáo gốc giả lập về puzzle Việt Nam",
+      "path": "sources/S01.txt",
+      "source_kind": "original_report",
+      "publisher": "Fictional test organization",
+      "country": [
+        "VN"
+      ],
+      "platforms": [
+        "Android Google Play"
+      ],
+      "data_period": "2025-Q2 to 2025-Q3",
+      "original_root_id": "ROOT_PUZZLE_VN",
+      "root_relation_reason": "Declared by fixture author, not inferred by app",
+      "metadata_provenance": "fixture_author",
+      "is_synthetic": true,
+      "permission_note": "Synthetic content created for this starter kit; may be used as test input.",
+      "original_url": null,
+      "published_at": "2025-10-15",
+      "content_hash": "edf8f8ee37fa918456c23453445555857cf7149005cc2fc1e09b214f1c969e48"
+    },
+    {
+      "source_id": "S02",
+      "title": "Báo cáo gốc giả lập về idle RPG Việt Nam",
+      "path": "sources/S02.txt",
+      "source_kind": "original_report",
+      "publisher": "Fictional test organization",
+      "country": [
+        "VN"
+      ],
+      "platforms": [
+        "Android Google Play"
+      ],
+      "data_period": "2025-Q2 to 2025-Q3",
+      "original_root_id": "ROOT_IDLE_VN",
+      "root_relation_reason": "Declared by fixture author, not inferred by app",
+      "metadata_provenance": "fixture_author",
+      "is_synthetic": true,
+      "permission_note": "Synthetic content created for this starter kit; may be used as test input.",
+      "original_url": null,
+      "published_at": "2025-10-16",
+      "content_hash": "37d852e8e469e64fc380389b36a1a219654cb3a862edf4f95d3159a911503cbd"
+    },
+    {
+      "source_id": "S03",
+      "title": "Khảo sát quan tâm giả lập",
+      "path": "sources/S03.txt",
+      "source_kind": "original_report",
+      "publisher": "Fictional test organization",
+      "country": [
+        "VN"
+      ],
+      "platforms": [],
+      "data_period": "2025-09",
+      "original_root_id": "ROOT_SURVEY_VN",
+      "root_relation_reason": "Declared by fixture author, not inferred by app",
+      "metadata_provenance": "fixture_author",
+      "is_synthetic": true,
+      "permission_note": "Synthetic content created for this starter kit; may be used as test input.",
+      "original_url": null,
+      "published_at": null,
+      "content_hash": "d9f3fc9b18bdf5591819f48afd87390c20455a3da9e7364a615e99d6eef8ae64"
+    },
+    {
+      "source_id": "S04",
+      "title": "Ước tính trái chiều cùng phạm vi giả lập",
+      "path": "sources/S04.txt",
+      "source_kind": "original_report",
+      "publisher": "Fictional test organization",
+      "country": [
+        "VN"
+      ],
+      "platforms": [
+        "Android Google Play"
+      ],
+      "data_period": "2025-Q2 to 2025-Q3",
+      "original_root_id": "ROOT_PUZZLE_VN_OTHER",
+      "root_relation_reason": "Declared by fixture author, not inferred by app",
+      "metadata_provenance": "fixture_author",
+      "is_synthetic": true,
+      "permission_note": "Synthetic content created for this starter kit; may be used as test input.",
+      "original_url": null,
+      "published_at": "2025-10-17",
+      "content_hash": "7981fa72518d8b5592978caca781fa46e412d68e5c7d173c40f10a16eb9bc052"
+    },
+    {
+      "source_id": "S05",
+      "title": "Bài dẫn lại báo cáo A giả lập",
+      "path": "sources/S05.txt",
+      "source_kind": "syndication",
+      "publisher": "Fictional test organization",
+      "country": [
+        "VN"
+      ],
+      "platforms": [
+        "Android Google Play"
+      ],
+      "data_period": "2025-Q2 to 2025-Q3",
+      "original_root_id": "ROOT_PUZZLE_VN",
+      "root_relation_reason": "Declared by fixture author, not inferred by app",
+      "metadata_provenance": "fixture_author",
+      "is_synthetic": true,
+      "permission_note": "Synthetic content created for this starter kit; may be used as test input.",
+      "original_url": null,
+      "published_at": null,
+      "content_hash": "cc52fc3c8a92f468d260e6ccf4decec9421cbea66b020ebe54510b974a1f7508"
+    },
+    {
+      "source_id": "S06",
+      "title": "Nguồn đúng chủ đề nhưng sai kỳ giả lập",
+      "path": "sources/S06.txt",
+      "source_kind": "original_report",
+      "publisher": "Fictional test organization",
+      "country": [
+        "VN"
+      ],
+      "platforms": [
+        "Android Google Play"
+      ],
+      "data_period": "2023-Q2 to 2023-Q3",
+      "original_root_id": "ROOT_OLD",
+      "root_relation_reason": "Declared by fixture author, not inferred by app",
+      "metadata_provenance": "fixture_author",
+      "is_synthetic": true,
+      "permission_note": "Synthetic content created for this starter kit; may be used as test input.",
+      "original_url": null,
+      "published_at": "2025-10-20",
+      "content_hash": "cc2c7a8d64c442ef198cfb3b476ff1949698cb159d6787abe56de90a98d1de8a"
+    },
+    {
+      "source_id": "S07",
+      "title": "Doanh thu net giả lập",
+      "path": "sources/S07.txt",
+      "source_kind": "original_report",
+      "publisher": "Fictional test organization",
+      "country": [
+        "VN"
+      ],
+      "platforms": [
+        "Android Google Play"
+      ],
+      "data_period": "2025-Q2 to 2025-Q3",
+      "original_root_id": "ROOT_NET",
+      "root_relation_reason": "Declared by fixture author, not inferred by app",
+      "metadata_provenance": "fixture_author",
+      "is_synthetic": true,
+      "permission_note": "Synthetic content created for this starter kit; may be used as test input.",
+      "original_url": null,
+      "published_at": null,
+      "content_hash": "90a1f627693b310ba7c783a8f256a8af7aec8b4320b85ff7950bda427176108e"
+    },
+    {
+      "source_id": "S08",
+      "title": "Danh mục cạnh tranh Thái Lan giả lập",
+      "path": "sources/S08.txt",
+      "source_kind": "company_disclosure",
+      "publisher": "Fictional test organization",
+      "country": [
+        "TH"
+      ],
+      "platforms": [
+        "Android Google Play"
+      ],
+      "data_period": "2025-09-30",
+      "original_root_id": "ROOT_TH_COMPETITION",
+      "root_relation_reason": "Declared by fixture author, not inferred by app",
+      "metadata_provenance": "fixture_author",
+      "is_synthetic": true,
+      "permission_note": "Synthetic content created for this starter kit; may be used as test input.",
+      "original_url": null,
+      "published_at": null,
+      "content_hash": "cbfc4d14020ca4b095010a07e204d1d7581b0b31f4de737fe7862f4154a21dfb"
+    },
+    {
+      "source_id": "S09",
+      "title": "Nguồn có chỉ dẫn thao túng giả lập",
+      "path": "sources/S09.txt",
+      "source_kind": "opinion",
+      "publisher": "Fictional test organization",
+      "country": [
+        "VN"
+      ],
+      "platforms": [],
+      "data_period": null,
+      "original_root_id": "ROOT_INJECTION",
+      "root_relation_reason": "Declared by fixture author, not inferred by app",
+      "metadata_provenance": "fixture_author",
+      "is_synthetic": true,
+      "permission_note": "Synthetic content created for this starter kit; may be used as test input.",
+      "original_url": null,
+      "published_at": null,
+      "content_hash": "68ff552701ac2ba6929aed98fa2010c05a1ee9f9207399bb8c92853700c92fef"
+    },
+    {
+      "source_id": "S10",
+      "title": "Phạm vi dữ liệu chi phí giả lập",
+      "path": "sources/S10.txt",
+      "source_kind": "company_disclosure",
+      "publisher": "Fictional test organization",
+      "country": [
+        "VN"
+      ],
+      "platforms": [],
+      "data_period": null,
+      "original_root_id": "ROOT_COSTS",
+      "root_relation_reason": "Declared by fixture author, not inferred by app",
+      "metadata_provenance": "fixture_author",
+      "is_synthetic": true,
+      "permission_note": "Synthetic content created for this starter kit; may be used as test input.",
+      "original_url": null,
+      "published_at": null,
+      "content_hash": "4e0b16c64e4530e40fc3edd168513631bd4573a85e43b1bdbe437652c98efdae"
+    },
+    {
+      "source_id": "S11",
+      "title": "Lượt tải và doanh thu khác chiều giả lập",
+      "path": "sources/S11.txt",
+      "source_kind": "original_report",
+      "publisher": "Fictional test organization",
+      "country": [
+        "VN"
+      ],
+      "platforms": [
+        "Android Google Play"
+      ],
+      "data_period": "2025-Q2 to 2025-Q3",
+      "original_root_id": "ROOT_DIVERGENCE",
+      "root_relation_reason": "Declared by fixture author, not inferred by app",
+      "metadata_provenance": "fixture_author",
+      "is_synthetic": true,
+      "permission_note": "Synthetic content created for this starter kit; may be used as test input.",
+      "original_url": null,
+      "published_at": null,
+      "content_hash": "58b9b6d453050ad82b3db59e90780c769cdfa489f9704dfa3b50ce0caeb15b97"
+    }
+  ]
+}

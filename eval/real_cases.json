@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "is_synthetic": false,
+  "gold_status": "Agent-prepared expectations; not yet independently graded by a domain reviewer.",
+  "cases": [
+    {
+      "case_id": "R01",
+      "split": "real",
+      "category": "verify_company_vs_country",
+      "input": {
+        "question": "Công bố FY2025 của VNG có đủ để kết luận riêng nhu cầu game tại Việt Nam tăng không? Phân biệt số toàn công ty, số mảng game và dữ liệu thị trường còn thiếu.",
+        "country": ["VN"],
+        "platforms": ["mobile"],
+        "period_start": "2025-01-01",
+        "period_end": "2025-12-31",
+        "decision_goal": "verify_claim",
+        "constraints": ["Không coi số hợp nhất là số riêng quốc gia hoặc lợi nhuận tựa game."],
+        "urls": ["https://vng.com.vn/news/vng-reports/vng-snapshot-fy-2025.html"]
+      },
+      "expected": "Nêu đúng giới hạn công bố doanh nghiệp/toàn danh mục; không tự suy ra số toàn thị trường Việt Nam. Cần thêm dữ liệu phân tách quốc gia, phương pháp và nền tảng."
+    },
+    {
+      "case_id": "R02",
+      "split": "real",
+      "category": "competition_other_country_pdf",
+      "input": {
+        "question": "Công bố Garena trong deck Sea FY2025 có đủ để lập bức tranh cạnh tranh mobile game riêng tại Thái Lan không, và cần thu thập những gì tiếp?",
+        "country": ["TH"],
+        "platforms": ["mobile"],
+        "period_start": "2025-01-01",
+        "period_end": "2025-12-31",
+        "decision_goal": "competition",
+        "constraints": ["Không đổi bookings thành GAAP revenue, không dùng số toàn cầu làm số Thái Lan."],
+        "urls": ["https://cdn.sea.com/investor/4Q2025/JcKns4LaJC8bxcQdJwXz/2026.03.03%20Sea%20Fourth%20Quarter%20and%20Full%20Year%202025%20Results%20Deck.pdf"]
+      },
+      "expected": "Chỉ sử dụng đúng phần Garena; tách bookings/revenue, kỳ đo, dữ liệu công ty với thị trường Thái Lan. Không đủ danh mục đối thủ/thị phần quốc gia thì limited/insufficient và bước bổ sung dữ liệu."
+    }
+  ]
+}

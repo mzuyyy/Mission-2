@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0",
+  "dataset": "synthetic_logic_checks",
+  "is_synthetic": true,
+  "cases": [
+    {
+      "case_id": "T01",
+      "split": "dev",
+      "category": "good",
+      "input": {
+        "question": "So sánh tín hiệu tăng trưởng puzzle và idle RPG tại Việt Nam Q3/2025 so với Q2/2025 để chọn hướng khảo sát sâu.",
+        "country": [
+          "VN"
+        ],
+        "platforms": [
+          "Android Google Play"
+        ],
+        "period_start": "2025-04-01",
+        "period_end": "2025-09-30",
+        "decision_goal": "screen_opportunities",
+        "source_ids": [
+          "S01",
+          "S02",
+          "S03"
+        ]
+      },
+      "expected_file": "expected/dev.json",
+      "status": "NOT_RUN"
+    },
+    {
+      "case_id": "T03",
+      "split": "dev",
+      "category": "ambiguous",
+      "input": {
+        "question": "Có hợp lý khi nói thể loại Mẫu Z đang tăng trưởng tốt nếu lượt tải tăng nhưng doanh thu giảm?",
+        "country": [
+          "VN"
+        ],
+        "platforms": [
+          "Android Google Play"
+        ],
+        "period_start": "2025-04-01",
+        "period_end": "2025-09-30",
+        "decision_goal": "verify_claim",
+        "source_ids": [
+          "S11"
+        ]
+      },
+      "expected_file": "expected/dev.json",
+      "status": "NOT_RUN"
+    },
+    {
+      "case_id": "T04",
+      "split": "dev",
+      "category": "conflict",
+      "input": {
+        "question": "Doanh thu IAP gross puzzle Việt Nam Q3/2025 tăng hay giảm so với Q2/2025?",
+        "country": [
+          "VN"
+        ],
+        "platforms": [
+          "Android Google Play"
+        ],
+        "period_start": "2025-04-01",
+        "period_end": "2025-09-30",
+        "decision_goal": "verify_claim",
+        "source_ids": [
+          "S01",
+          "S04"
+        ]
+      },
+      "expected_file": "expected/dev.json",
+      "status": "NOT_RUN"
+    }
+  ],
+  "evaluation_note": "Bounded live regression: existing dev good, ambiguous and conflict cases; synthetic sources, not real market research."
+}
