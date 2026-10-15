@@ -21,7 +21,8 @@ Repository đã public: [mzuyyy/Mission-2](https://github.com/mzuyyy/Mission-2).
   ca nguồn thật, failure PDF và lỗi quota; có Kỳ vọng → Thực tế → Đạt/Chưa đạt → Điều học được.
 - [CI Linux đã đạt](https://github.com/mzuyyy/Mission-2/actions/runs/38711272415):
   67 test, Ruff, basedpyright, cài production từ lock và Streamlit health `ok`.
-- Bản online: đang chờ hoàn tất đăng nhập/kết nối Streamlit Community Cloud để tạo app.
+- Bản online: đã đăng nhập Streamlit; khi chọn Create app, host yêu cầu kết nối GitHub.
+  Hiện chờ đăng nhập GitHub `mzuyyy` để hoàn tất kết nối và tạo app.
   **Chưa có URL ứng dụng được xác nhận**, không dùng link repo/CI thay link demo.
   [Hướng dẫn deploy](docs/DEPLOYMENT.md) và lệnh local bên dưới đã chuẩn bị;
   chạy offline được khi chưa có key hoặc Gemini hết quota.

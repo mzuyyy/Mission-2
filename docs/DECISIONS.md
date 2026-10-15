@@ -31,10 +31,14 @@ Bằng chứng thực nghiệm: chưa có.
 - Đã thử môi trường Linux qua GitHub Actions run `38711272415` trên commit
   `f34a6a8`: 67 tests đạt, Ruff/basedpyright đạt, cài production từ uv.lock và
   health endpoint trả `ok`. Đây là smoke test, không phải deploy hoặc live research.
-- Host yêu cầu phiên đăng nhập chưa sẵn sàng; người dùng đang đăng nhập.
+- Streamlit đã đăng nhập Google; Create app yêu cầu "You must be connected to GitHub
+  to deploy an app." Connect to GitHub hiện mở trang GitHub login; chờ chủ tài khoản
+  hoàn tất xác thực, không dùng token CLI để giả lập browser login.
   Không tạo URL demo giả, không thay bằng trang tĩnh hoặc tunnel local rồi gọi hosted app.
 - PowerPoint 7 slide có notes dự kiến 4:40, dùng ảnh UI synthetic có nhãn và kết quả
   thật. Đây là tài liệu trình bày, không phải video đã quay hoặc nghiệm thu semantic.
+- Truy cập ẩn danh repo và file PPTX đều HTTP 200, hash file tải về khớp local;
+  CI commit bài nộp `3b1deac` cũng SUCCESS, run `38712252116`.
 - Tham khảo: https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app
   và https://docs.streamlit.io/develop/concepts/connections/secrets-management
 

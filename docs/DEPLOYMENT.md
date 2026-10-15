@@ -5,7 +5,8 @@
 `pyproject.toml`/`uv.lock` vẫn là nguồn dependency chính.
 
 Trạng thái 15/10/2026: repo đã public, Linux CI đã kiểm production startup.
-Chưa tạo app online vì đang chờ người dùng hoàn tất đăng nhập hosting/kết nối GitHub.
+Đã đăng nhập Streamlit qua Google. Khi chọn Create app, host yêu cầu kết nối GitHub;
+hiện trang GitHub login đang chờ chủ tài khoản xác thực. Chưa tạo app online.
 Không có URL demo được xác nhận để ghi vào bài nộp ở thời điểm này.
 
 ## Cách deploy đã chuẩn bị

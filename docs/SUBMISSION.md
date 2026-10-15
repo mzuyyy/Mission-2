@@ -1,7 +1,8 @@
 # Checklist bàn giao
 
 Trạng thái mới nhất: repo public, file trình bày và bộ ca kiểm thử đã có.
-Đang chờ hoàn tất đăng nhập Streamlit Community Cloud để tạo bản online.
+Đã đăng nhập Streamlit; đang chờ chủ tài khoản đăng nhập GitHub và kết nối với
+Community Cloud để tạo bản online.
 Chưa có video quay thật; chưa nghiệm thu toàn bộ chất lượng ngữ nghĩa.
 
 ## Repo public

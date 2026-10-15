@@ -19,8 +19,13 @@
   timeline dự kiến 280 giây; render lại file PPTX cuối và xem từng slide.
   Ảnh UI là synthetic replay được gắn nhãn. Chưa quay video thật.
 - Đã chuẩn bị `.streamlit/secrets.example.toml` và hướng dẫn Community Cloud.
-  Hosting đang chờ người dùng hoàn tất đăng nhập; chưa tạo app hoặc xác nhận URL
-  online. Trình duyệt tích hợp từng mất kết nối; không báo deploy thành công từ CI.
+  Streamlit đã đăng nhập qua Google, nhưng Create app báo: "You must be connected
+  to GitHub to deploy an app." Đã mở Connect to GitHub, đang ở trang GitHub login
+  chờ chủ tài khoản; chưa tạo app hoặc xác nhận URL online. Không báo deploy thành công từ CI.
+- Bài nộp đã push ở `3b1deac`; truy cập ẩn danh GitHub repo và PowerPoint đều HTTP 200,
+  SHA-256 file tải về khớp bản local. CI trên commit bài nộp cũng SUCCESS,
+  run `38712252116`. Kiểm tra lại 108 tệp working tree, gồm XML trong PPTX, không
+  thấy key local hoặc mẫu secret đã quét. Không đưa inspect/debug files vào bài nộp.
 - Tiếp theo: dùng phiên hosting đã đăng nhập để deploy, cấu hình secrets riêng trên
   host, kiểm UI từ URL public và cập nhật README. Gemini e1.2 vẫn chưa được chấm
   ngữ nghĩa sau sửa vì lượt live trước trả HTTP 429.
