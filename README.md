@@ -14,7 +14,7 @@ Repository đã public: [mzuyyy/Mission-2](https://github.com/mzuyyy/Mission-2).
 
 ## Bài nộp Mission 2
 
-- [PowerPoint trình bày MVP](deliverables/Gamota_Mission_2_MVP.pptx): 7 slide,
+- [PowerPoint trình bày MVP](deliverables/Gamota_Mission_2_MVP_v2.pptx): 7 slide,
   ghi chú thuyết trình dự kiến **4 phút 40 giây**, gồm bài toán, luồng chứng minh,
   demo, ca khó và giới hạn. Đây là slide hỗ trợ quay, chưa phải video đã ghi hình.
 - [Bộ tình huống kiểm thử](docs/SUBMISSION_TEST_CASES.md): 8 ca logic đã chạy,
