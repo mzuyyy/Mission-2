@@ -1,0 +1,43 @@
+name: MVP checks
+
+on:
+  push:
+    branches: [main]
+    paths-ignore: ['docs/**', 'deliverables/**', '*.md']
+  pull_request:
+    paths-ignore: ['docs/**', 'deliverables/**', '*.md']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  linux-checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      LLM_API_KEY: ''
+      LLM_API_BASE: ''
+      LLM_MODEL: ''
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
+        with:
+          version: '0.11.19'
+          python-version: '3.12'
+          enable-cache: true
+      - run: uv sync --frozen
+      - run: uv run ruff check .
+      - run: uv run basedpyright
+      - run: uv run pytest tests -q
+      - name: Install production dependencies from lock
+        run: uv sync --frozen --no-dev
+      - name: Start production Streamlit and check health
+        shell: bash
+        run: |
+          uv run --no-dev streamlit run app.py --server.address 127.0.0.1 --server.port 8501 > /tmp/gamota-streamlit.log 2>&1 &
+          app_pid=$!
+          trap 'kill "$app_pid" 2>/dev/null || true' EXIT
+          curl --fail --silent --show-error --retry 10 --retry-delay 1 --retry-connrefused http://127.0.0.1:8501/_stcore/health
