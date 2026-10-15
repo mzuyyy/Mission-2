@@ -14,6 +14,9 @@ class Settings(BaseSettings):
     llm_api_style: Literal["openai_chat"] = "openai_chat"
     llm_json_mode: bool = True
     llm_token_parameter: Literal["max_completion_tokens", "max_tokens"] = "max_completion_tokens"  # noqa: S105 -- API field name, not a credential.
+    fallback_llm_api_base: str = ""
+    fallback_llm_api_key: SecretStr = SecretStr("")
+    fallback_llm_model: str = ""
     llm_timeout_seconds: float = Field(default=45, gt=0, le=180)
     max_sources: int = Field(default=12, ge=1, le=20)
     max_file_mb: int = Field(default=10, ge=1, le=20)
@@ -29,6 +32,14 @@ class Settings(BaseSettings):
     @property
     def live_ready(self) -> bool:
         return bool(self.llm_api_base and self.llm_api_key.get_secret_value() and self.llm_model)
+
+    @property
+    def fallback_ready(self) -> bool:
+        return bool(
+            self.fallback_llm_api_base
+            and self.fallback_llm_api_key.get_secret_value()
+            and self.fallback_llm_model
+        )
 
     @property
     def max_bytes(self) -> int:

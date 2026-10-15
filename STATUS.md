@@ -1,8 +1,17 @@
 # Trạng thái Gamota Mission 2
 
+## Fallback Groq + nới limits (15/10/2026)
+
+- Fallback một lần sang Groq `openai/gpt-oss-20b` khi primary 429; key Groq cũ còn sống.
+  MAX_CONTEXT_CHARS 8000→16000, MAX_OUTPUT_TOKENS 2500→4000 (user đã chọn mức).
+  Test 70 passed; probe fallback live OK. Evaluator c954e0f3: cả hai provider đều 429
+  (R01 đã dùng fallback, 4 req); R02 rerun chuyển Groq rồi 413 — Groq chỉ cứu case vừa/nhỏ.
+  Host cần thêm Secrets: FALLBACK_LLM_API_BASE/KEY/MODEL + limits mới (xem secrets.example.toml).
+
 ## Sửa UI chọn nền tảng/ngày theo yêu cầu (15/10/2026)
 
 - `src/gamota_research/ui_input.py`: nền tảng dùng `st.multiselect` (bấm mở bảng tích chọn,
+  8 gợi ý + ô tự nhập thêm);
   8 gợi ý + ô tự nhập thêm); từ ngày/đến ngày dùng `st.date_input` kèm checkbox
   "Chưa biết" (mặc định unknown, không tự điền). Contract giữ nguyên kiểm tra từ ngày ≤ đến ngày.
 - Kiểm tra thật: `pytest` **67 passed, 1 deselected**; AppTest render không exception,

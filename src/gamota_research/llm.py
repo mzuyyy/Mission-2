@@ -77,10 +77,42 @@ class ChatGenerator:
         self.tokens_known = True
         self.started = time.monotonic()
         self.last_failure: ProviderFailure | None = None
+        self.using_fallback = False
+        if settings.fallback_ready:
+            self._check_base(settings.fallback_llm_api_base)
+
+    @staticmethod
+    def _check_base(base: str) -> None:
+        parsed = urlsplit(base)
+        if (
+            parsed.scheme != "https"
+            or not parsed.hostname
+            or parsed.username
+            or parsed.password
+            or parsed.query
+            or parsed.fragment
+        ):
+            raise ResearchError(
+                "llm_config", "Fallback API base cần HTTPS, không credentials/query/fragment."
+            )
+
+    def _endpoint(self) -> tuple[str, str, str]:
+        """Active (base, key, model); fallback after primary is rate-limited."""
+        if self.using_fallback:
+            return (
+                self.settings.fallback_llm_api_base,
+                self.settings.fallback_llm_api_key.get_secret_value(),
+                self.settings.fallback_llm_model,
+            )
+        return (
+            self.settings.llm_api_base,
+            self.settings.llm_api_key.get_secret_value(),
+            self.settings.llm_model,
+        )
 
     @property
     def model_id(self) -> str:
-        return self.settings.llm_model
+        return self._endpoint()[2]
 
     def usage(self) -> Usage:
         return Usage(
@@ -129,16 +161,27 @@ class ChatGenerator:
     def _should_retry_provider_error(self, exc: ResearchError, attempt: int) -> bool:
         """One bounded retry for transient provider errors, inside the shared budget.
 
-        provider_retryable waits out the provider delay; provider_incomplete
+        provider_retryable switches to the configured fallback endpoint once
+        (no sleep: different provider, different quota) instead of waiting out
+        the primary delay; without fallback it waits as before. provider_incomplete
         (refusal/truncated output) retries immediately. Never fabricates output.
         """
         if attempt or exc.code not in ("provider_retryable", "provider_incomplete"):
             return False
+        if exc.code == "provider_retryable" and self._switch_to_fallback():
+            return True
         if exc.code == "provider_retryable":
             delay = self._retry_delay()
             if delay > MAX_RETRY_DELAY_SECONDS:
                 return False
             time.sleep(delay)
+        return True
+
+    def _switch_to_fallback(self) -> bool:
+        """Use the fallback endpoint once per generator; report via model_id."""
+        if self.using_fallback or not self.settings.fallback_ready:
+            return False
+        self.using_fallback = True
         return True
 
     def _retry_delay(self) -> float:
@@ -150,8 +193,9 @@ class ChatGenerator:
     def _body(
         self, schema_json: str, instructions: str, payload: str, repair: str
     ) -> dict[str, JsonValue]:
+        _, _, model = self._endpoint()
         body: dict[str, JsonValue] = {
-            "model": self.model_id,
+            "model": model,
             "messages": [
                 {
                     "role": "system",
@@ -167,6 +211,7 @@ class ChatGenerator:
 
     def _request(self, body: dict[str, JsonValue]) -> ApiResponse:
         self.last_failure = None
+        base, key, _ = self._endpoint()
         transport = self.transport or httpx.HTTPTransport(retries=0, trust_env=False)
         deadline = time.monotonic() + self.settings.llm_timeout_seconds
         with (
@@ -178,8 +223,8 @@ class ChatGenerator:
             ) as client,
             client.stream(
                 "POST",
-                self.settings.llm_api_base.rstrip("/") + "/chat/completions",
-                headers={"Authorization": "Bearer " + self.settings.llm_api_key.get_secret_value()},
+                base.rstrip("/") + "/chat/completions",
+                headers={"Authorization": "Bearer " + key},
                 json=body,
             ) as response,
         ):

@@ -261,14 +261,26 @@ Bằng chứng thực nghiệm: chưa có.
   JSON mode/token param qua compat layer cần probe 1 request thực tế sau khi có key.
 - Cách kiểm chứng lại: thêm key → probe 1 request đo status/TPM → chạy evaluator R01/R02.
 - Kết quả kiểm chứng: NOT_RUN (đang chờ key của người dùng).
-- Thời điểm thật:
-- Thiết kế trước:
-- Quan sát/ca test/log dẫn chứng:
-- Thay đổi:
-- Vì sao chọn:
-- Đánh đổi:
-- Cách kiểm chứng lại:
-- Kết quả kiểm chứng: NOT_RUN / nội dung quan sát thật
+### D014 Fallback Groq một lần khi primary bị rate-limit + nới limits theo duyệt
+- Thời điểm thật: 15/10/2026, theo yêu cầu tường minh của người dùng.
+- Thiết kế trước: một endpoint/model; 429 chỉ sleep-retry cùng provider.
+- Quan sát/log dẫn chứng: Gemini 429 chặn demo; docs Groq xác nhận gpt-oss-20b free
+  30 RPM/8K TPM/1K RPD; key Groq cũ trong backup còn sống (probe /models HTTP 200,
+  có openai/gpt-oss-20b); probe 1 request fallback thật OK (JSON hợp lệ, 1 req).
+- Thay đổi: Settings thêm FALLBACK_* (optional); ChatGenerator chuyển sang fallback
+  đúng một lần khi gặp provider_retryable, không sleep, chung ngân sách request;
+  model_id/usages báo đúng endpoint đang dùng. MAX_CONTEXT_CHARS 8000→16000,
+  MAX_OUTPUT_TOKENS 2500→4000 theo option người dùng đã chọn.
+- Vì sao chọn: giữ một LLM chính theo đặc tả, fallback chỉ đổi khi primary 429 —
+  không đổi provider âm thầm khi lỗi khác. Test: primary-429→fallback-200,
+  fallback-429→abort sau 2 req, không fallback giữ hành vi sleep cũ.
+- Đánh đổi: Groq 8K TPM không gánh payload lớn — đã quan sát thật: R02 rerun chuyển
+  sang Groq rồi 413 payload_too_large (3 req). Fallback chỉ cứu case nhỏ/vừa (R01-size).
+  Chưa lý giải được 1 artifact: R02 trong run c954e0f3 ghi model gemini dù cùng code;
+  mock + R01 + rerun đều chứng minh switch đúng — ghi nhận theo dõi, không bịa nguyên nhân.
+- Cách kiểm chứng lại: pytest + probe_fallback + evaluator khi quota hồi.
+- Kết quả kiểm chứng: pytest 70 passed; ruff/basedpyright sạch; evaluator c954e0f3
+  R01/R02 BLOCKED 429 cả hai provider (R01 đã dùng fallback, 4 req).
 
 Không điền “đã cải thiện” khi chưa đo; giữ phân biệt giả thuyết và quan sát.
 
