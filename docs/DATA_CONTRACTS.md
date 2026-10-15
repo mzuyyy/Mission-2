@@ -33,10 +33,13 @@ page_number nullable; section nullable; surrounding_context;
 metric nullable; value nullable; unit/currency nullable;
 country/platform/period nullable; gross_net nullable; actual_or_estimate nullable.
 Value có thể null cho bằng chứng định tính.
-Draft extraction nội bộ ở prompt e1.1 có thể chỉ gửi evidence_id/source_id/span_id,
+Draft extraction nội bộ từ prompt e1.1 (hiện e1.2) có thể chỉ gửi evidence_id/source_id/span_id,
 không cần quote. Code lấy nguyên span từ snapshot để tạo Evidence cuối với quote/offsets/hash
 bắt buộc như trên; nếu model vẫn gửi quote thì chỉ nhận chuỗi con exact của đúng span.
 Không fuzzy-match hoặc dùng văn bản do model sửa làm snapshot.
+e1.2 dùng snapshot PDF trích theo layout; trang là span nguyên vẹn, không gửi trang
+vượt cap quote 6.000 ký tự hoặc phần context còn lại. Omission được ghi trong coverage;
+không đổi schema, source/hash/offsets của các report cũ vẫn giữ nguyên khi replay.
 Offsets theo normalized_text, end exclusive, quote phải khớp chính xác.
 Không lấy số lượng nguồn làm metric thị trường.
 

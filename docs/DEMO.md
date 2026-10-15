@@ -2,6 +2,10 @@
 
 Đây là dàn ý quay, chưa phải video hoặc bản mô tả kết quả đã chạy.
 
+Đã có [PowerPoint trình bày MVP](../deliverables/Gamota_Mission_2_MVP.pptx):
+7 slide, notes theo nhịp **4 phút 40 giây** dự kiến. Mở Presenter View để đọc lời dẫn;
+slide demo ghi rõ ảnh UI synthetic/replay. File không thay thế video ghi hình thật.
+
 | Mốc | Nội dung | Bằng chứng phải nhìn thấy |
 | --- | --- | --- |
 | 0:00–0:30 | Bài toán và người dùng | Cần sàng lọc cơ hội với căn cứ có thể kiểm tra |

@@ -21,6 +21,47 @@ Bằng chứng thực nghiệm: chưa có.
 
 ## Mẫu cho thay đổi mới
 
+### D017 Public bài nộp và chuẩn bị Streamlit Community Cloud
+- Người dùng yêu cầu repo public, deploy online và file trình bày. Đã chuyển
+  `mzuyyy/Mission-2` sang public sau quét secrets lịch sử/tệp tracked; không đưa
+  `.env`, backup key hoặc raw snapshots/logs vào repo.
+- Chọn Community Cloud vì app đã dùng Streamlit. Secrets dùng root-level TOML,
+  được Streamlit cung cấp qua environment; không đổi provider/model hay bật billing.
+  Mẫu công khai để API key rỗng. Tài liệu API được đối chiếu docs Streamlit.
+- Đã thử môi trường Linux qua GitHub Actions run `38711272415` trên commit
+  `f34a6a8`: 67 tests đạt, Ruff/basedpyright đạt, cài production từ uv.lock và
+  health endpoint trả `ok`. Đây là smoke test, không phải deploy hoặc live research.
+- Host yêu cầu phiên đăng nhập chưa sẵn sàng; người dùng đang đăng nhập.
+  Không tạo URL demo giả, không thay bằng trang tĩnh hoặc tunnel local rồi gọi hosted app.
+- PowerPoint 7 slide có notes dự kiến 4:40, dùng ảnh UI synthetic có nhãn và kết quả
+  thật. Đây là tài liệu trình bày, không phải video đã quay hoặc nghiệm thu semantic.
+- Tham khảo: https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app
+  và https://docs.streamlit.io/develop/concepts/connections/secrets-management
+
+### D016 Giữ bố cục và trang PDF để tránh ghép số khác cột
+- Quan sát: R02 trước sửa gán 9.2 tỷ USD vào Garena Bookings; snapshot plain trang
+  4/5 đặt nhãn Garena cạnh dãy số Monee. Cùng PDF dùng pypdf layout giữ các cột
+  riêng. Không phải lỗi quote: 6/6 quote cũ khớp; semantic mapping vẫn sai.
+- Sửa: `extract_text(extraction_mode="layout", layout_mode_space_vertically=False,
+  layout_mode_scale_weight=0.5)` theo API pypdf đang cài. Weight được thử trên nguồn:
+  trang 4 từ 2.916 ký tự layout mặc định còn 1.533, vẫn giữ thứ tự cột;
+  không tăng context/output/request budget. Không OCR hoặc nhận dạng chart.
+- Retrieval coi trang PDF là một span, không chia 1.400 ký tự như HTML.
+  Trang vượt cap quote 6.000 hoặc context còn lại bị bỏ và có coverage warning;
+  đánh đổi giảm recall thay vì gửi mảnh số mất tiêu đề. Snapshot/hash/locator vẫn
+  nguyên văn bản layout, replay cũ giữ snapshot cũ và không bị sửa.
+- Prompt evidence-1.2 yêu cầu kiểm hàng/cột/metric/unit/period, thiếu quan hệ thì
+  unknown và xin bảng. Đây là hướng dẫn model, không phải semantic verifier bằng code.
+- TDD: 3 test mới đỏ trước sửa, xanh sau sửa (thêm regression HTML). Tự kiểm còn thấy
+  layout mặc định bỏ chữ xoay: test mới đỏ rồi bật `layout_mode_strip_rotated=False`,
+  giữ caveat thay vì âm thầm bỏ. Tổng 5 regression mới xanh; 67 test offline đạt,
+  browser replay/review/export 1 đạt; Ruff/basedpyright sạch.
+- Live e1.2 `24e3d68b0c3745b58ee1abb8528e0d05`: R01/R02 BLOCKED HTTP 429,
+  4/2 requests. Thử lại riêng R02 `e91bc1ec57d241fc8814855b5281e6d0` vẫn 429,
+  2 requests. Không tăng cap/đổi provider. Chưa có report mới, semantic review NOT_RUN.
+  Không ghi cải thiện semantic chỉ từ unit test hoặc bản trích layout dễ đọc hơn.
+- API tham khảo: https://pypdf.readthedocs.io/en/stable/user/extract-text.html
+
 ### D015 Tạo repository riêng tư theo yêu cầu đẩy code
 - Người dùng yêu cầu tự tạo repo tên Mission 2 và push; tên GitHub dùng `Mission-2`.
   Chọn private vì chưa có chỉ dẫn công khai; không deploy ứng dụng.

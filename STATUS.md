@@ -1,5 +1,59 @@
 # Trạng thái Gamota Mission 2
 
+## Chuẩn bị bài nộp public và online theo yêu cầu mới (15/10/2026)
+
+- Người dùng đã yêu cầu rõ repo public và deploy online; chỉ dẫn cũ chưa xuất bản
+  đã được thay thế cho phạm vi này. GitHub API xác nhận `private=false`, repo
+  `https://github.com/mzuyyy/Mission-2`. Bản sửa PDF đã push ở `0dfb9b2`.
+- Quét 120 blobs lịch sử và 103 tệp tracked trước public: không thấy API key local
+  hoặc mẫu token/private key đã quét; không có raw runs/snapshots tracked.
+  Đây là kiểm tra secrets có giới hạn, không phải chứng nhận an ninh toàn diện.
+- CI Linux commit `f34a6a8`: **SUCCESS**, run `38711272415`; 67 passed, 1 deselected,
+  7.48s; Ruff/type sạch, `uv sync --frozen --no-dev` và Streamlit health `ok`.
+  CI không có API key và không gọi live LLM.
+- Bộ bài nộp `docs/SUBMISSION_TEST_CASES.md`: 8 ca logic và ca nguồn thật/failure,
+  không tính fixture/mock là live. Lượt chọn lọc **28 passed, 0.87s**,
+  browser **1 passed, 10.55s**, XML `eval/runs/submission_scenarios.xml` và
+  `submission_browser.xml`.
+- Đã tạo `deliverables/Gamota_Mission_2_MVP.pptx`: 7 slides, 7 trang notes,
+  timeline dự kiến 280 giây; render lại file PPTX cuối và xem từng slide.
+  Ảnh UI là synthetic replay được gắn nhãn. Chưa quay video thật.
+- Đã chuẩn bị `.streamlit/secrets.example.toml` và hướng dẫn Community Cloud.
+  Hosting đang chờ người dùng hoàn tất đăng nhập; chưa tạo app hoặc xác nhận URL
+  online. Trình duyệt tích hợp từng mất kết nối; không báo deploy thành công từ CI.
+- Tiếp theo: dùng phiên hosting đã đăng nhập để deploy, cấu hình secrets riêng trên
+  host, kiểm UI từ URL public và cập nhật README. Gemini e1.2 vẫn chưa được chấm
+  ngữ nghĩa sau sửa vì lượt live trước trả HTTP 429.
+
+## Bản sửa cấu trúc PDF sau push (15/10/2026, khoảng 15:45–15:48 GMT+7)
+
+- Tái hiện bằng PDF synthetic vẽ số khác thứ tự vị trí: parser cũ mất hàng/cột;
+  3 regression mới FAIL trước sửa. Trang thực 4/5 Sea deck có nhãn Garena nằm
+  sát số Monee trong plain text; layout giữ cột đúng. Trang 4 cũ chưa bị chia nên
+  không quy toàn bộ lỗi cho retrieval.
+- Đã chuyển PDF sang pypdf layout, giữ trang nguyên vẹn khi chọn context;
+  trang không vừa ngân sách quote/context được bỏ nguyên trang và ghi coverage.
+  Prompt evidence-1.2 yêu cầu abstain số khi nhãn/cột/kỳ mơ hồ, không suy thiếu dữ liệu
+  ở phần đã chọn thành khẳng định thiếu trong toàn bộ tài liệu.
+- Tự kiểm phát hiện layout mặc định bỏ chữ xoay: thêm test đỏ rồi bật giữ chữ xoay;
+  5 regression PDF/HTML mới PASS. Các module thay đổi dưới 150 dòng code/module;
+  không thêm dependency, agent hoặc thay hợp đồng JSON.
+- `uv run pytest tests -q --junitxml=eval/runs/pdf_layout_offline_final.xml`
+  → **67 passed, 1 deselected, 10.06s**. Test dùng nguồn synthetic/mock.
+  Browser replay/review/export thật trong Chromium → **1 passed, 12.35s**;
+  XML `eval/runs/pdf_layout_browser.xml`. Ruff check/format và basedpyright sạch.
+- Evaluator nguồn thật `24e3d68b0c3745b58ee1abb8528e0d05`: R01/R02 BLOCKED HTTP 429,
+  CLI exit 2, lần lượt 4/2 requests. Thử lại riêng PDF sau đó:
+  `e91bc1ec57d241fc8814855b5281e6d0`, R02 BLOCKED HTTP 429, 2 requests.
+  Gemini/config/ngân sách giữ nguyên, không fallback. Không có report e1.2 để chấm.
+- PDF thật parse đủ 25 trang, 32.819 ký tự, offsets hợp lệ; retrieval chọn 7.821 ký tự,
+  bỏ 17 trang và ghi coverage. Raw PDF/snapshots chỉ lưu local trong thư mục ignored.
+  CLI `ingest --pdf` và `inspect` chạy thật exit 0; 8 spans được kiểm quote/page/offset
+  bằng code, audit ở `runs/pdf_layout_fix/locator_audit.json` (không LLM/không claims).
+- Chưa thể khẳng định model đã hết lỗi ghép số hoặc chấm semantic/completeness PASS.
+  Bước tiếp theo: chạy lại R02 khi quota cho phép và đối chiếu từng fact với đúng cột/kỳ.
+  Bản sửa đang local, chưa commit/push thêm hoặc deploy.
+
 ## Đã đẩy Git theo yêu cầu người dùng
 
 - Đã khởi tạo Git local, nhánh `main`, giữ nguyên code và dữ liệu có sẵn.

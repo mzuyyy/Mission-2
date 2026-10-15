@@ -1,5 +1,61 @@
 # Kết quả kiểm thử thực tế
 
+## Kiểm tra bài nộp public và môi trường Linux
+
+15/10/2026: [CI run 38711272415](https://github.com/mzuyyy/Mission-2/actions/runs/38711272415)
+trên commit `f34a6a8` kết thúc SUCCESS: **67 passed, 1 deselected, 7.48s**,
+Ruff/basedpyright sạch, production dependency sync thành công, Streamlit health trả `ok`.
+Runner Ubuntu/Python 3.12, không key hoặc live LLM. CI startup không thay smoke test host public.
+
+Các lệnh của [bộ tình huống bài nộp](SUBMISSION_TEST_CASES.md) được chạy lại local:
+**28 passed, 0.87s**; browser Chromium **1 passed, 10.55s** với synthetic replay/mock.
+XML `eval/runs/submission_scenarios.xml` và `submission_browser.xml`.
+Deck 7 slides đã export PPTX, import lại và render đủ 7 slides để kiểm trực quan;
+7 notes đều có Sources. Chưa quay video thật.
+
+## Bản sửa bố cục PDF: evidence-1.2, live bị chặn quota
+
+15/10/2026, khoảng 15:45–15:48 GMT+7. Giữ Gemini `gemini-2.5-flash-lite`,
+context 8.000 ký tự, output 2.500 token/request, tối đa 4 requests/lượt gồm retry.
+
+| Ca | Kỳ vọng | Kết quả thực tế | Đánh giá | Điều học được |
+| --- | --- | --- | --- | --- |
+| PDF synthetic có drawing order khác vị trí | Số/nhãn giữ đúng cột, hàng | Parser plain làm test FAIL; layout làm PASS | PASS regression offline | Thứ tự lệnh vẽ không phải thứ tự đọc của bảng |
+| Trang PDF dài hơn 1.400 ký tự | Không tách tiêu đề khỏi số | Cũ chia 2 spans; mới giữ 1 span exact | PASS regression offline | Cần ngân sách cho cả trang |
+| Trang PDF vượt cap quote | Bỏ nguyên trang và hiện omission | Cũ gửi 5 fragments; mới không gửi và có warning | PASS regression offline | Giảm recall là đánh đổi có ghi rõ |
+| PDF có caveat chữ xoay | Không mất caveat | Layout mặc định làm test FAIL; bật giữ chữ xoay làm PASS | PASS regression offline | Đổi chế độ parser phải kiểm chữ xoay |
+| HTML dài | Chunking như trước | Test nối lại đủ snapshot | PASS regression offline | Thay đổi chỉ ảnh hưởng cách chia PDF |
+| R01 VNG, live e1.2 | Report có căn cứ | HTTP 429, CLI exit 2, 4 requests, không report | BLOCKED | Chưa chấm ngữ nghĩa được |
+| R02 Sea PDF, live e1.2 | Số đúng cột và kỳ, không suy toàn cầu thành TH | HTTP 429, CLI exit 2, 2 requests; thử lại riêng vẫn 429/2 requests | BLOCKED | Không coi parser sửa xong là model đã đúng |
+
+Lệnh và artifact:
+
+- `uv run pytest tests/unit/test_pdf_layout.py -q`: trước sửa **3 FAIL, 1 PASS**,
+  sau sửa 4 PASS; thêm test chữ xoay rồi **1 FAIL, 4 PASS**, sau giữ chữ xoay **5 PASS**.
+  XML `eval/runs/pdf_layout_red.xml`, `pdf_layout_green.xml`,
+  `pdf_layout_rotated_red.xml`, `pdf_layout_rotated_green.xml`.
+- `uv run pytest tests -q --junitxml=eval/runs/pdf_layout_offline_final.xml`:
+  **67 passed, 1 deselected, 10.06s**, fixture/mock; không chứng minh live quality.
+- `uv run pytest tests/browser -m browser -q --junitxml=eval/runs/pdf_layout_browser.xml`:
+  **1 passed, 12.35s**, Chromium thật, synthetic/mock replay/review/export, không gọi LLM.
+- `uv run ruff check .`, `uv run basedpyright`, format check các file thay đổi: đạt.
+- `uv run python -m gamota_research.cli ingest --pdf runs/pdf_layout_fix/source.pdf --out runs/pdf_layout_fix/cli_sources.json`:
+  exit 0, `P1: ok; chars=32819`; CLI `inspect` cùng request thật exit 0, 8 spans.
+  Kiểm riêng 8 locator/quote/page bằng code đều hợp lệ; audit không LLM tại
+  `runs/pdf_layout_fix/locator_audit.json`, không được tính là report nghiên cứu live.
+- `uv run python eval/run_evaluation.py --cases eval/real_cases.json --split real --freeze-prompt`:
+  `eval/runs/24e3d68b0c3745b58ee1abb8528e0d05/`, R01/R02 BLOCKED 429.
+- `uv run python eval/run_evaluation.py --cases eval/real_cases_r02_only.json --split real`:
+  `eval/runs/e91bc1ec57d241fc8814855b5281e6d0/`, R02 BLOCKED 429.
+
+Đã đóng băng e1.2 trước chạy; R01/R02 là ca đã thấy để sửa lỗi, không gọi benchmark
+chưa thấy trước. Expected chỉ evaluator đọc; source snapshots/hash được lưu trước CLI.
+PDF thật parse đủ 25 trang, 32.819 ký tự; retrieval chọn 7.821 ký tự, bỏ 17 trang,
+không cắt mảnh số khỏi nhãn. Những quan sát này chỉ chứng minh parsing/retrieval.
+Không có report e1.2 để đo material support, unsupported count hoặc completeness;
+giữ NOT_RUN/unknown. Không xác định được quota 429 là RPM/TPM/daily từ log hiện có.
+Lỗi semantic e1.1 bên dưới vẫn là failure thật, chưa được xóa hoặc tính PASS sau sửa.
+
 ## Kết quả hiện tại: giữ Gemini, prompt evidence-1.1
 
 15/10/2026, khoảng 14:00–14:07 GMT+7. Google OpenAI-compatible endpoint,

@@ -4,12 +4,27 @@
 nhận định fact/inference/hypothesis → phản chứng, thiếu dữ liệu → người dùng kiểm tra,
 review và export JSON/Markdown.
 
-**Giữ Gemini `gemini-2.5-flash-lite` theo chỉ dẫn mới nhất. Hai ca nguồn thật đã sinh
-report bằng CLI, quote/hash/locator hợp lệ. Chưa đạt chất lượng nghiên cứu toàn bộ:
-ca PDF còn lỗi model ghép số giữa các cột, cần người đọc nguồn sửa và review.**
+**Giữ Gemini `gemini-2.5-flash-lite` theo chỉ dẫn mới nhất. Bản sửa PDF dùng layout,
+giữ ngữ cảnh nguyên trang và prompt evidence-1.2. Hai ca nguồn thật từng sinh report
+ở e1.1 nhưng PDF ghép sai số giữa các cột. Lượt live e1.2 đang BLOCKED HTTP 429;
+chưa chứng minh model đã hết lỗi ngữ nghĩa sau sửa.**
 Chưa đáp ứng toàn bộ [ACCEPTANCE](docs/ACCEPTANCE.md): semantic/completeness chưa được
 người chấm độc lập xác nhận, chưa đo lợi ích tốc độ, chưa có video.
-Chưa tạo repo public hoặc deploy.
+Repository đã public: [mzuyyy/Mission-2](https://github.com/mzuyyy/Mission-2).
+
+## Bài nộp Mission 2
+
+- [PowerPoint trình bày MVP](deliverables/Gamota_Mission_2_MVP.pptx): 7 slide,
+  ghi chú thuyết trình dự kiến **4 phút 40 giây**, gồm bài toán, luồng chứng minh,
+  demo, ca khó và giới hạn. Đây là slide hỗ trợ quay, chưa phải video đã ghi hình.
+- [Bộ tình huống kiểm thử](docs/SUBMISSION_TEST_CASES.md): 8 ca logic đã chạy,
+  ca nguồn thật, failure PDF và lỗi quota; có Kỳ vọng → Thực tế → Đạt/Chưa đạt → Điều học được.
+- [CI Linux đã đạt](https://github.com/mzuyyy/Mission-2/actions/runs/38711272415):
+  67 test, Ruff, basedpyright, cài production từ lock và Streamlit health `ok`.
+- Bản online: đang chờ hoàn tất đăng nhập/kết nối Streamlit Community Cloud để tạo app.
+  **Chưa có URL ứng dụng được xác nhận**, không dùng link repo/CI thay link demo.
+  [Hướng dẫn deploy](docs/DEPLOYMENT.md) và lệnh local bên dưới đã chuẩn bị;
+  chạy offline được khi chưa có key hoặc Gemini hết quota.
 
 ## Chạy local
 
@@ -138,7 +153,8 @@ Một lượt Laguna trước đó có R02 FAIL do quote không khớp span; pip
 Key từng được xác thực HTTP 200. Những lượt lịch sử này chưa sinh report, không tính PASS.
 Các dòng OpenRouter trên là lịch sử. Lượt cuối Gemini: R01/R02 CLI exit 0; T03 fixture
 gọi LLM thật exit 0; T01 HTTP 503, T04 HTTP 429. Quote checks lần lượt 5/5, 6/6, 3/3,
-không phải tỷ lệ semantic support. Offline hiện **62 passed**, browser regression **1 passed**.
+không phải tỷ lệ semantic support. Bản sửa PDF e1.2: offline **67 passed**,
+browser regression **1 passed**; R01/R02 và một lượt thử lại riêng R02 BLOCKED HTTP 429.
 Xem bảng mới nhất trong TEST_RESULTS; không coi báo cáo có citation hợp lệ là nghiên cứu đúng.
 Không có tỷ lệ semantic support hoặc cải thiện tốc độ đã được chứng minh.
 
@@ -148,12 +164,19 @@ Logic ở `src/gamota_research`, UI ở `app.py/ui_*.py`; cùng pipeline cho CLI
 Pydantic validate contracts; nguồn NFC/hash bất biến; retrieval lexical tiếng Việt,
 có ưu tiên caveat và phân bố nguồn. Mọi span bỏ qua/nguồn bị cắt đều ghi coverage.
 Quote/hash/IDs kiểm tra bằng code; hỗ trợ ngữ nghĩa và completeness cần người đọc.
-Prompt `evidence-1.1` ưu tiên chọn span IDs; code trích nguyên văn span từ snapshot, giữ
+Prompt `evidence-1.2` ưu tiên chọn span IDs; code trích nguyên văn span từ snapshot, giữ
 xuống dòng/khoảng trắng và locator. Nhánh quote do model gửi vẫn phải khớp chính xác.
 Trích evidence có chọn lọc; việc gửi một span không chứng minh đã đọc/chấm hết phản chứng.
+PDF trích theo bố cục chữ, giữ khoảng trắng giữa cột và chữ xoay. Retrieval giữ một
+trang snapshot trong một span; trang không vừa cap quote 6.000 ký tự hoặc ngân sách
+context còn lại bị bỏ nguyên trang, ghi omitted IDs và warning. Cách này giảm recall
+ở trang dài; cần tài liệu/bảng thay thế khi trang quyết định bị bỏ. Không nhận dạng chart
+hoặc tự xác minh quan hệ số/nhãn; model phải để unknown nếu không rõ hàng/cột/kỳ đo.
 
 Mặc định: 12 nguồn, 10 MiB/nguồn, 60 trang PDF, 60.000 ký tự snapshot/nguồn,
-40.000 ký tự span, tối đa 4 request LLM/lượt gồm retry/repair; mỗi stage tối đa 2 lần.
+40.000 ký tự context (cấu hình hiện tại dùng 8.000), tối đa 4 request LLM/lượt
+gồm retry/repair; mỗi stage tối đa 2 lần. HTML chia span khoảng 1.400 ký tự;
+PDF giữ trang, cap quote 6.000 ký tự.
 Giới hạn payload gồm metadata/evidence: context cap + 50.000 ký tự, ngoài schema hệ thống cố định.
 Tokens/cost không biết giữ null. Chưa cấu hình bảng giá để tính tiền.
 Giới hạn được validate trong config; không retry download.
@@ -180,7 +203,8 @@ Không có tài khoản, quota toàn dịch vụ hoặc search web diện rộng
 - [STATUS.md](STATUS.md), [docs/DECISIONS.md](docs/DECISIONS.md): trạng thái và quan sát thật.
 - [docs/ACCEPTANCE.md](docs/ACCEPTANCE.md), [docs/DEMO.md](docs/DEMO.md), [docs/SUBMISSION.md](docs/SUBMISSION.md): checklist còn phải hoàn tất.
 
-Code đã được đẩy theo yêu cầu người dùng lên repository riêng tư
+Code đã được đẩy và chuyển sang public theo yêu cầu người dùng tại
 [mzuyyy/Mission-2](https://github.com/mzuyyy/Mission-2), nhánh `main`.
-`.env`, backup key và dữ liệu chạy thử giữ local; chưa deploy hoặc quay video.
+`.env`, backup key và dữ liệu chạy thử giữ local. Trạng thái deploy ghi ở đầu README;
+chưa quay video.
 
