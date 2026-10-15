@@ -61,6 +61,18 @@ def apply_metadata(sources: list[SourceDocument], raw: str) -> list[SourceDocume
     return result
 
 
+PLATFORM_OPTIONS: tuple[str, ...] = (
+    "Android",
+    "iOS",
+    "PC",
+    "Web",
+    "Console",
+    "PlayStation",
+    "Xbox",
+    "Nintendo Switch",
+)
+
+
 def request_form(session: Session, settings: Settings) -> tuple[ResearchRequest | None, bool]:
     st.subheader("Câu hỏi và phạm vi")
     question = st.text_area(
@@ -69,9 +81,30 @@ def request_form(session: Session, settings: Settings) -> tuple[ResearchRequest 
         key="question",
     )
     country = st.text_input("Một quốc gia/thị trường", value="VN")
-    platform = st.text_input("Nền tảng (phân cách bằng dấu phẩy)", value="Android Google Play")
-    period_start = st.text_input("Từ ngày (YYYY-MM-DD; để trống nếu chưa biết)")
-    period_end = st.text_input("Đến ngày (YYYY-MM-DD; để trống nếu chưa biết)")
+    platforms = st.multiselect(
+        "Nền tảng (bấm để mở bảng chọn, tích vào các ô)",
+        options=list(PLATFORM_OPTIONS),
+        default=["Android"],
+        key="platforms",
+    )
+    extra_platforms = st.text_input(
+        "Nền tảng khác (tự nhập, phân cách bằng dấu phẩy)",
+        key="extra_platforms",
+    )
+    start_unknown = st.checkbox("Chưa biết từ ngày", value=True, key="start_unknown")
+    period_start = st.date_input(
+        "Từ ngày (bấm để mở bảng chọn ngày)",
+        value=None,
+        disabled=start_unknown,
+        key="period_start",
+    )
+    end_unknown = st.checkbox("Chưa biết đến ngày", value=True, key="end_unknown")
+    period_end = st.date_input(
+        "Đến ngày (bấm để mở bảng chọn ngày)",
+        value=None,
+        disabled=end_unknown,
+        key="period_end",
+    )
     goal = st.selectbox(
         "Tiêu chí quyết định",
         [
@@ -101,18 +134,19 @@ def request_form(session: Session, settings: Settings) -> tuple[ResearchRequest 
             request = ResearchRequest(
                 question=question,
                 country=[country.strip()],
-                platforms=[p.strip() for p in platform.split(",") if p.strip()],
-                period_start=date.fromisoformat(period_start) if period_start else None,
-                period_end=date.fromisoformat(period_end) if period_end else None,
+                platforms=[
+                    *platforms,
+                    *(p.strip() for p in extra_platforms.split(",") if p.strip()),
+                ],
+                period_start=None if start_unknown else period_start,
+                period_end=None if end_unknown else period_end,
                 decision_goal=goal,
                 alternatives=[p.strip() for p in alternatives.split(",") if p.strip()],
                 constraints=[constraints] if constraints else [],
                 clarified=clarified,
             )
         except (ValueError, ValidationError):
-            st.error(
-                "Kiểm tra câu hỏi, thị trường, nền tảng và ngày YYYY-MM-DD (từ ngày ≤ đến ngày)."
-            )
+            st.error("Kiểm tra câu hỏi, thị trường, nền tảng và khoảng ngày (từ ngày ≤ đến ngày).")
     source_input(session, settings)
     return request, consent
 

@@ -1,5 +1,14 @@
 # Trạng thái Gamota Mission 2
 
+## Sửa UI chọn nền tảng/ngày theo yêu cầu (15/10/2026)
+
+- `src/gamota_research/ui_input.py`: nền tảng dùng `st.multiselect` (bấm mở bảng tích chọn,
+  8 gợi ý + ô tự nhập thêm); từ ngày/đến ngày dùng `st.date_input` kèm checkbox
+  "Chưa biết" (mặc định unknown, không tự điền). Contract giữ nguyên kiểm tra từ ngày ≤ đến ngày.
+- Kiểm tra thật: `pytest` **67 passed, 1 deselected**; AppTest render không exception,
+  multiselect mặc định `['Android']`, date None+disabled; kịch bản nhập đủ (kèm nền tảng
+  tự nhập + khoảng ngày) không lỗi, khoảng ngày ngược báo lỗi đúng.
+
 ## Deploy online đã xác minh một phần (15/10/2026, khoảng 16:55–17:10 GMT+7)
 
 - App deploy từ `mzuyyy/Mission-2@main/app.py`, Python 3.12:
