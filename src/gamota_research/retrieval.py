@@ -2,7 +2,11 @@ import re
 import unicodedata
 from collections import deque
 
-from gamota_research.contracts import ResearchRequest, SourceDocument
+from gamota_research.contracts import (
+    MAX_EVIDENCE_QUOTE_CHARS,
+    ResearchRequest,
+    SourceDocument,
+)
 from gamota_research.models import Coverage, Span
 
 
@@ -21,8 +25,9 @@ def split_spans(source: SourceDocument, size: int = 1400) -> list[Span]:
     for start, end, page in ranges:
         position = start
         while position < end:
-            stop = min(position + size, end)
-            if stop < end:
+            # PDF columns share headers/units across rows: keep the page atomic.
+            stop = end if page is not None else min(position + size, end)
+            if page is None and stop < end:
                 boundary = source.normalized_text.rfind("\n", position + size // 2, stop)
                 if boundary > position:
                     stop = boundary + 1
@@ -76,7 +81,8 @@ def retrieve(
             if not queue:
                 continue
             span = queue.popleft()
-            if used + len(span.text) <= max_chars:
+            fits_quote = span.page_number is None or len(span.text) <= MAX_EVIDENCE_QUOTE_CHARS
+            if fits_quote and used + len(span.text) <= max_chars:
                 selected.append(span)
                 used += len(span.text)
     selected_ids = {span.span_id for span in selected}
@@ -84,6 +90,11 @@ def retrieve(
     warnings = [f"{s.source_id}: {s.read_error}" for s in sources if s.read_error]
     if omitted:
         warnings.append("Context không chứa toàn bộ snapshot; có thể bỏ sót phản chứng quyết định.")
+    if any(s.page_number is not None and s.span_id in omitted for s in all_spans):
+        warnings.append(
+            "Trang PDF không vừa ngân sách context/quote được bỏ nguyên trang; "
+            "không gửi mảnh số liệu thiếu tiêu đề, đơn vị hoặc kỳ đo. Cần bổ sung trích bảng có ngữ cảnh."
+        )
     coverage = Coverage(
         read_sources=[s.source_id for s in sources if s.normalized_text],
         failed_sources=[s.source_id for s in sources if s.read_status in {"failed", "unsupported"}],

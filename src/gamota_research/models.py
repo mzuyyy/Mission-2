@@ -4,6 +4,7 @@ from typing import Literal
 from pydantic import Field
 
 from gamota_research.contracts import (
+    MAX_EVIDENCE_QUOTE_CHARS,
     Claim,
     Conflict,
     Contract,
@@ -99,7 +100,7 @@ class EvidenceDraft(Contract):
     evidence_id: Identifier
     source_id: Identifier
     span_id: Identifier
-    quote: str | None = Field(default=None, min_length=1, max_length=6000)
+    quote: str | None = Field(default=None, min_length=1, max_length=MAX_EVIDENCE_QUOTE_CHARS)
     metric: str | None = None
     value: float | None = Field(default=None, allow_inf_nan=False)
     unit: str | None = None

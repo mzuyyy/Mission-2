@@ -1,5 +1,5 @@
 from datetime import UTC, date, datetime
-from typing import Annotated, Literal
+from typing import Annotated, Final, Literal
 from uuid import uuid4
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
@@ -8,6 +8,7 @@ Identifier = Annotated[str, Field(pattern=r"^[A-Za-z0-9_-]{1,80}$")]
 Provenance = Literal["user", "document", "heuristic", "model", "human", "unknown"]
 AssessmentLabel = Literal["supported", "limited", "conflicting", "insufficient"]
 ReviewDecision = Literal["unreviewed", "accept", "needs_review", "reject"]
+MAX_EVIDENCE_QUOTE_CHARS: Final = 6000
 
 
 def utc_now() -> datetime:
@@ -104,7 +105,7 @@ class Evidence(Contract):
     evidence_id: Identifier
     source_id: Identifier
     content_hash: str
-    quote: str = Field(min_length=1, max_length=6000)
+    quote: str = Field(min_length=1, max_length=MAX_EVIDENCE_QUOTE_CHARS)
     start_char: int = Field(ge=0)
     end_char: int = Field(gt=0)
     page_number: int | None = None

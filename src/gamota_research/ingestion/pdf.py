@@ -45,7 +45,15 @@ def parse_pdf_inner(data: bytes, source_id: str, name: str, limits: IngestLimits
         partial = len(reader.pages) > limits.max_pdf_pages
         empty_pages: list[int] = []
         for index, page in enumerate(reader.pages[: limits.max_pdf_pages], 1):
-            text = normalize(page.extract_text() or "")
+            text = normalize(
+                page.extract_text(
+                    extraction_mode="layout",
+                    layout_mode_space_vertically=False,
+                    layout_mode_scale_weight=0.5,
+                    layout_mode_strip_rotated=False,
+                )
+                or ""
+            )
             if not text.strip():
                 empty_pages.append(index)
             remaining = limits.max_source_chars - position
