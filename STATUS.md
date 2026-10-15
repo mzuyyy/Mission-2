@@ -1,5 +1,14 @@
 # Trạng thái Gamota Mission 2
 
+## Key Groq chết, cả hai provider đều chặn (15/10/2026 tối)
+
+- Chạy evaluator `d5714397`: R01/R02 BLOCKED. Gemini 429 (quota ngày hết sau nhiều lượt thử
+  của cả người dùng và agent) → fallback kích hoạt đúng → Groq trả **401 invalid key**.
+  Key Groq sáng còn sống (probe `/models` HTTP 200), tối đã 401 — key phía Groq chết,
+  không phải lỗi copy (đối chiếu `.env` trùng byte backup).
+- Muốn fallback sống lại: tạo key Groq mới trên console.groq.com, tự thêm vào Secrets host
+  và `.env` local. Demo trước mắt dùng replay R01 đã lưu.
+
 ## Fallback Groq + nới limits (15/10/2026)
 
 - Fallback một lần sang Groq `openai/gpt-oss-20b` khi primary 429; key Groq cũ còn sống.
