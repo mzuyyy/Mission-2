@@ -180,5 +180,7 @@ Không có tài khoản, quota toàn dịch vụ hoặc search web diện rộng
 - [STATUS.md](STATUS.md), [docs/DECISIONS.md](docs/DECISIONS.md): trạng thái và quan sát thật.
 - [docs/ACCEPTANCE.md](docs/ACCEPTANCE.md), [docs/DEMO.md](docs/DEMO.md), [docs/SUBMISSION.md](docs/SUBMISSION.md): checklist còn phải hoàn tất.
 
-Repo ban đầu không có `.git`; không tạo commit, remote, repo public hoặc video giả.
+Code đã được đẩy theo yêu cầu người dùng lên repository riêng tư
+[mzuyyy/Mission-2](https://github.com/mzuyyy/Mission-2), nhánh `main`.
+`.env`, backup key và dữ liệu chạy thử giữ local; chưa deploy hoặc quay video.
 

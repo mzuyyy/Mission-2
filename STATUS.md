@@ -1,6 +1,6 @@
 # Trạng thái Gamota Mission 2
 
-## Chuẩn bị đẩy Git theo yêu cầu người dùng
+## Đã đẩy Git theo yêu cầu người dùng
 
 - Đã khởi tạo Git local, nhánh `main`, giữ nguyên code và dữ liệu có sẵn.
 - Đã tạo repository riêng tư `https://github.com/mzuyyy/Mission-2` bằng tài khoản
@@ -8,7 +8,12 @@
 - Commit gồm MVP, tests, fixtures giả lập, eval pack và tài liệu. `.env`, backup key,
   snapshots/logs chạy thử (`runs`, `eval/runs*`) và script chẩn đoán thử nghiệm giữ local.
 - Bộ test offline chạy lại trước commit: **62 passed, 1 deselected, 10.68s**,
-  XML ở `eval/runs/git_publish_offline.xml`. Kết quả push sẽ ghi sau khi xác nhận trên remote.
+  XML ở `eval/runs/git_publish_offline.xml`. Ruff check đạt; basedpyright không lỗi/cảnh báo.
+- Đã push commit MVP `637c8f4` lên `origin/main`. GitHub API xác nhận SHA remote
+  `637c8f4f4083b1b0e6436a384352c4511154896a` trùng local, repo `private=true`.
+  Kiểm tra nội dung staged không thấy key; không đưa raw snapshots/logs vào Git.
+- Bước tiếp theo của MVP vẫn là review lỗi ngữ nghĩa PDF và hoàn tất đánh giá còn thiếu;
+  push repo không đồng nghĩa nghiệm thu chất lượng hoặc deploy.
 
 ## Cập nhật hiện tại sau chỉ dẫn giữ Gemini (15/10/2026, khoảng 14:07 GMT+7)
 

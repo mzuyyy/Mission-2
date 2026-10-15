@@ -21,6 +21,17 @@ Bằng chứng thực nghiệm: chưa có.
 
 ## Mẫu cho thay đổi mới
 
+### D015 Tạo repository riêng tư theo yêu cầu đẩy code
+- Người dùng yêu cầu tự tạo repo tên Mission 2 và push; tên GitHub dùng `Mission-2`.
+  Chọn private vì chưa có chỉ dẫn công khai; không deploy ứng dụng.
+- Quan sát thật: GitHub CLI tạo `mzuyyy/Mission-2`; push nhánh `main` thành công.
+  API trả `private=true` và SHA `637c8f4f4083b1b0e6436a384352c4511154896a`
+  trùng commit MVP local. Đây là kiểm chứng việc lưu code, không phải chất lượng nghiên cứu.
+- Giữ `.env`, backup key, raw snapshots/logs và probe scripts tại máy. Bổ sung ignore
+  `eval/runs_*` và `eval/runs-*`; kiểm tra staged không thấy key trước commit.
+- Kiểm tra trước push: 62 test offline đạt, 1 browser test deselected; Ruff check đạt,
+  basedpyright không lỗi/cảnh báo. Không chạy thêm live LLM cho thao tác Git.
+
 ### D014 Giữ Gemini, chọn span và tách ngân sách input/output
 - Quan sát thật: trace `eval/runs/gemini_output_fix/before_attempt_*.json` cho R02:
   extraction đầu finish=stop nhưng quote không khớp, các lượt kế finish=length với cap 2.500.

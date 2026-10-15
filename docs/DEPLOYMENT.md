@@ -26,5 +26,7 @@ Public demo chỉ dùng nguồn công khai, quota host/chi phí tổng và quy�
 MVP hiện mới có ngân sách per-run, chưa có quota toàn dịch vụ hoặc hệ tài khoản.
 PDF parser có deadline nhưng chưa có hard memory sandbox Windows; dùng host giới hạn RAM/process.
 
-Repo ban đầu chưa có Git; chưa tạo remote, push public, deploy hoặc kiểm tra URL online.
+Repo ban đầu chưa có Git. Theo yêu cầu người dùng, đã tạo và push code lên repository
+riêng tư `https://github.com/mzuyyy/Mission-2`, nhánh `main`.
+Chưa đổi repo sang public, deploy hoặc kiểm tra URL ứng dụng online.
 Video chưa quay. Không có link demo online để báo thành công.
